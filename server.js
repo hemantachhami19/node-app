@@ -9,19 +9,25 @@ app.set('view engine', 'hbs');
 //app.use('/public', express.static(path.join(__dirname, 'public')));
 //app.use('/static', express.static('public'));
 
+//Registering partials
 hbs.registerPartials(__dirname + '/views/partials');
+
+//Registering helpers
+hbs.registerHelper('getCurrentYear',()=>{
+   return new Date().getFullYear();
+});
+
+
 app.get('/',(req,res)=>{
     res.render('home.hbs',{
         pageTitle:"Home page",
-        currentYear: new Date().getFullYear()
+
     })
 });
 
 app.get('/about', function (req, res) {
     res.render('about.hbs',{
         pageTitle: "About page",
-        currentYear:new Date().getFullYear()
-
     })
 });
 
