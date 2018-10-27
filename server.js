@@ -12,6 +12,14 @@ app.set('view engine', 'hbs');
 //Registering partials
 hbs.registerPartials(__dirname + '/views/partials');
 
+//Registering middleware
+//next:tells when response is done
+app.use((req,res,next)=>{
+    var  now  = new Date().toString();
+    console.log(`Current time is ${now}`);
+    next();
+});
+
 //Registering helpers
 hbs.registerHelper('getCurrentYear',()=>{
    return new Date().getFullYear();
