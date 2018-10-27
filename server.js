@@ -2,23 +2,27 @@ const express = require('express');
 const hbs = require('hbs');
 var app = express();
 var path = require("path");
+const fs = require('fs');
 app.set('view engine', 'hbs');
 
-//ToDo::future Fix loading the static files
-//app.use(express.static(__dirname +'/public'));
-//app.use('/public', express.static(path.join(__dirname, 'public')));
-//app.use('/static', express.static('public'));
+app.use(express.static(__dirname + '/public'));
+
+/** next:tells when response is done
+    Registering middleware */
+app.use((req,res,next)=>{
+    var  now  = new Date().toString();
+    var log =(`${now}: ${req.method} ${req.url} \n`);
+    console.log(log);
+    fs.appendFile('server.log',log,(err)=>{
+        if(err){
+            console.log("unable to append to server.log")
+        }
+    });
+    next();
+});
 
 //Registering partials
 hbs.registerPartials(__dirname + '/views/partials');
-
-//Registering middleware
-//next:tells when response is done
-app.use((req,res,next)=>{
-    var  now  = new Date().toString();
-    console.log(`Current time is ${now}`);
-    next();
-});
 
 //Registering helpers
 hbs.registerHelper('getCurrentYear',()=>{
