@@ -62,6 +62,6 @@ app.get('/bad', function (req, res) {
 });
 
 //listen helps to bind the server in port of machine
-app.listen(3000,()=>{
+app.listen(process.env.PORT||3000 ,()=>{
     console.log("server is up in port 3000");
 });
