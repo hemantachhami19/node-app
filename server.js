@@ -1,18 +1,32 @@
 const express = require('express');
+const hbs = require('hbs');
 var app = express();
 
-app.get('/', function (req, res) {
-    res.send("<h1>Index page</h1>")
+app.set('view engine', 'hbs');
+app.use(express.static(__dirname+'/public'));
+
+app.get('/',(req,res)=>{
+    res.render('home.hbs',{
+        pageTitle:"Home page",
+        currentYear: new Date().getFullYear()
+    })
 });
+
 app.get('/about', function (req, res) {
-    res.send("<h1>About page</h1>")
+    res.render('about.hbs',{
+        pageTitle: "About page",
+        currentYear:new Date().getFullYear()
+
+    })
 });
+
 app.get('/send-json', function (req, res) {
     res.send({
        name:"hemant",
        age:24
     });
 });
+
 
 app.get('/bad', function (req, res) {
     res.send({
@@ -21,4 +35,6 @@ app.get('/bad', function (req, res) {
 });
 
 //listen helps to bind the server in port of machine
-app.listen(3000);
+app.listen(3000,()=>{
+    console.log("server is up in port 3000");
+});
