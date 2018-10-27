@@ -33,10 +33,10 @@ hbs.registerHelper('screamIt',(text)=>{
     return text.toUpperCase();
 });
 
-//Maintainance middleware added
-app.use((req,res,next)=>{
-   res.render('maintenance.hbs')
-});
+//Maintainance middleware added and can be used when needed
+// app.use((req,res,next)=>{
+//    res.render('maintenance.hbs')
+// });
 
 app.get('/',(req,res)=>{
     console.log(req);
