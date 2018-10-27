@@ -1,10 +1,15 @@
 const express = require('express');
 const hbs = require('hbs');
 var app = express();
-
+var path = require("path");
 app.set('view engine', 'hbs');
-app.use(express.static(__dirname+'/public'));
 
+//ToDo::future Fix loading the static files
+//app.use(express.static(__dirname +'/public'));
+//app.use('/public', express.static(path.join(__dirname, 'public')));
+//app.use('/static', express.static('public'));
+
+hbs.registerPartials(__dirname + '/views/partials');
 app.get('/',(req,res)=>{
     res.render('home.hbs',{
         pageTitle:"Home page",
